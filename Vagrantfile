@@ -39,7 +39,10 @@ Vagrant.configure("2") do |config|
         trigger.name = "[SCRIPTING]"
         trigger.info = "Syntax check"
         trigger.run = { path: conf['script_path'] + '/linter.sh' }
-      end  
+      end
+      
+      config.vm.synced_folder "C:/Users/Admin stagiaire.DESKTOP-8967908/projet/tmp/shared", "/var/www/html"
+      
     end
   end                                                      
 end                                                        
