@@ -26,11 +26,21 @@ Vagrant.configure("2") do |config|
         v.cpus = "#{cpus}"                                 
         v.name = "#{vmname}"                               
       end
+    
+      machine.ssh.forward_x11 = true
 
       machine.vm.provision 'shell' do |shell|
         shell.path = conf['script_path'] + "/common-bootstrap.sh"
+        if File.file?("scripts/#{vmname}.sh")
+           shell.path = "scripts/#{vmname}.sh" 
+        end
       end                                                
-    end                                                    
+      config.trigger.before [ :up, :provision ] do |trigger|
+        trigger.name = "[SCRIPTING]"
+        trigger.info = "Syntax check"
+        trigger.run = { path: conf['script_path'] + '/linter.sh' }
+      end  
+    end
   end                                                      
 end                                                        
 #for config in vagrant.configure('2')  
