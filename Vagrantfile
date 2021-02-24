@@ -42,7 +42,7 @@ Vagrant.configure("2") do |config|
       end
       
       config.vm.synced_folder "C:/Users/Admin stagiaire.DESKTOP-8967908/projet/tmp/shared", "/var/www/html"
-      
+      config.vm.network "forwarded_port", guest: 80, host:8011
     end
   end                                                      
 end                                                        
